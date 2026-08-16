@@ -67,3 +67,10 @@ _________________________________________________________
 • [_Journaling helps enhance mood_](http://ijiapp.com/abstractArticleContentBrowse/IJPP/38492/JPJ/fullText)|_Indian Journal of Psychiatry_
 
 • [_Benefits of reliving your happy memories_](https://www.psychologytoday.com/us/blog/a-buoyant-life/202303/the-benefits-of-reliving-your-happy-memories)|_PsychologyToday_
+
+• [_Deployed_App_]([https://www.psychologytoday.com/us/blog/a-buoyant-life/202303/the-benefits-of-reliving-your-happy-memories](https://technology-for-wellness.onrender.com/))|_Render_Deployment_
+
+*★★★★★★ Home page of Astea ★★★★★★★*
+
+*Build with love and care*
+![Home page of Astrea](https://github.com/user-attachments/assets/8b7bf05b-47ca-4cce-ab78-c16c87f80a50)
