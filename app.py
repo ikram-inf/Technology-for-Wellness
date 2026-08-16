@@ -77,6 +77,8 @@ def seed_moods():
     db.session.commit()
 
 
+
+
 with app.app_context():
     db.create_all()
     seed_moods()
@@ -154,12 +156,38 @@ def entry_detail(entry_id):
 def journal():
     entries = Entry.query.order_by(Entry.date.desc()).all()
 
-    grouped = {}
-    for entry in entries:
-        day = entry.date.strftime("%B %-d, %Y")
-        grouped.setdefault(day, []).append(entry)
+    # every distinct day that has at least one entry, newest first
+    all_days = sorted({entry.date.date() for entry in entries}, reverse=True)
 
-    return render_template("journal.html", grouped=grouped)
+    day_param = request.args.get("day")  # e.g. "2026-08-16"
+
+    if day_param:
+        selected_day = datetime.strptime(day_param, "%Y-%m-%d").date()
+    elif all_days:
+        selected_day = all_days[0]  # default to most recent day with entries
+    else:
+        selected_day = None
+
+    day_entries = [e for e in entries if e.date.date() == selected_day] if selected_day else []
+
+    # find this day's position among days that have entries, for Previous/Next
+    prev_day = next_day = None
+    if selected_day and selected_day in all_days:
+        idx = all_days.index(selected_day)
+        # all_days is newest-first, so "next" in time is idx-1, "previous" in time is idx+1
+        next_day = all_days[idx - 1] if idx > 0 else None
+        prev_day = all_days[idx + 1] if idx < len(all_days) - 1 else None
+
+    return render_template(
+        "journal.html",
+        all_days=all_days,
+        selected_day=selected_day,
+        day_entries=day_entries,
+        prev_day=prev_day,
+        next_day=next_day,
+    )
+
+
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)

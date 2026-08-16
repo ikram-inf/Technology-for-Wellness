@@ -6,30 +6,52 @@
 </head>
 <body>
   <div class="hero">
-    <div class="tagline">Your sky journal</div>
+    <div class="tagline">
+      {% if selected_day %}{{ selected_day.strftime("%B %-d, %Y") }}{% else %}Your sky journal{% endif %}
+    </div>
     <h1>Journal</h1>
     <a href="/new" class="tab active">+ Add memory</a>
 
+    <div class="day-nav">
+      {% if prev_day %}
+        <a href="/journal?day={{ prev_day }}" class="tab inactive">← Previous day</a>
+      {% else %}
+        <span class="tab inactive disabled">← Previous day</span>
+      {% endif %}
+      {% if next_day %}
+        <a href="/journal?day={{ next_day }}" class="tab inactive">Next day →</a>
+      {% else %}
+        <span class="tab inactive disabled">Next day →</span>
+      {% endif %}
+    </div>
+
     <div class="journal-list">
-      {% for day, day_entries in grouped.items() %}
-        <div class="day-label">{{ day }}</div>
-        {% for entry in day_entries %}
-          <div class="paper">
-            <div class="paper-mood" style="color: {{ entry.mood.color }};">{{ entry.mood.label }}</div>
-            <p class="paper-text">{{ entry.text }}</p>
-            {% if entry.media_type == "image" %}
-              <img class="paper-media" src="/{{ entry.media_path }}">
-            {% elif entry.media_type == "audio" %}
-              <audio controls src="/{{ entry.media_path }}"></audio>
-            {% elif entry.media_type == "video" %}
-              <video class="paper-media" controls src="/{{ entry.media_path }}"></video>
-            {% endif %}
-          </div>
-        {% endfor %}
+      {% for entry in day_entries %}
+        <div class="paper">
+          <div class="paper-mood" style="color: {{ entry.mood.color }};">{{ entry.mood.label }}</div>
+          <p class="paper-text">{{ entry.text }}</p>
+          {% if entry.media_type == "image" %}
+            <img class="paper-media" src="/{{ entry.media_path }}">
+          {% elif entry.media_type == "audio" %}
+            <audio controls src="/{{ entry.media_path }}"></audio>
+          {% elif entry.media_type == "video" %}
+            <video class="paper-media" controls src="/{{ entry.media_path }}"></video>
+          {% endif %}
+        </div>
       {% else %}
         <p class="paper-text" style="color:white;">No memories yet. <a href="/new">Write your first →</a></p>
       {% endfor %}
     </div>
+
+    {% if all_days|length > 1 %}
+      <div class="day-picker">
+        {% for day in all_days %}
+          <a href="/journal?day={{ day }}" class="day-chip {{ 'selected' if day == selected_day else '' }}">
+            {{ day.strftime("%b %-d") }}
+          </a>
+        {% endfor %}
+      </div>
+    {% endif %}
 
     <a href="/sky" class="tab inactive full-width">Sky</a>
   </div>
