@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>New memory</title>
+</head>
+<body>
+  <h1>Write a memory</h1>
+
+  <form action="/entries" method="POST" enctype="multipart/form-data">
+    <textarea name="text" placeholder="What's on your mind?" required></textarea>
+    <br><br>
+
+    <label>Mood:</label>
+    <select name="mood_id" required>
+      {% for mood in moods %}
+        <option value="{{ mood.id }}">{{ mood.label }}</option>
+      {% endfor %}
+    </select>
+    <br><br>
+
+    <label>Photo, audio, or video (optional):</label>
+    <input type="file" name="media" accept="image/*,audio/*,video/*">
+    <br><br>
+
+    <button type="submit">Save to sky</button>
+  </form>
+</body>
+</html>

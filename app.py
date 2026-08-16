@@ -1,6 +1,6 @@
 import os
 from datetime import datetime
-from flask import Flask, request, send_from_directory
+from flask import Flask, request, send_from_directory, render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
 
@@ -75,6 +75,19 @@ with app.app_context():
 def hello():
     return "<h1>hello sky</h1><p>Flask is running and talking to SQLite.</p>"
 
+@app.route("/entries")
+def list_entries():
+    entries = Entry.query.order_by(Entry.date.desc()).all()
+    return render_template("entries.html", entries=entries)
+
+@app.route("/new")
+def new_entry_form():
+    moods = Mood.query.all()
+    return render_template("new_entry.html", moods=moods)
+
+@app.route("/uploads/<filename>")
+def uploaded_file(filename):
+    return send_from_directory(app.config["UPLOAD_FOLDER"], filename)
 
 @app.route("/entries", methods=["POST"])
 def create_entry():
@@ -97,12 +110,7 @@ def create_entry():
     db.session.add(entry)
     db.session.commit()
 
-    return {"id": entry.id, "media_path": entry.media_path}, 201
-
-
-@app.route("/uploads/<filename>")
-def uploaded_file(filename):
-    return send_from_directory(app.config["UPLOAD_FOLDER"], filename)
+    return redirect(url_for("list_entries"))
 
 
 if __name__ == "__main__":
