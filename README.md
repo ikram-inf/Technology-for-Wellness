@@ -68,7 +68,7 @@ _________________________________________________________
 
 • [_Benefits of reliving your happy memories_](https://www.psychologytoday.com/us/blog/a-buoyant-life/202303/the-benefits-of-reliving-your-happy-memories)|_PsychologyToday_
 
-• [_Deployed_App_]([https://www.psychologytoday.com/us/blog/a-buoyant-life/202303/the-benefits-of-reliving-your-happy-memories](https://technology-for-wellness.onrender.com/))|_Render_Deployment_
+• [_Deployed_App_](https://technology-for-wellness.onrender.com)|_Render_Deployment_
 
 *★★★★★★ Home page of Astea ★★★★★★★*
 
