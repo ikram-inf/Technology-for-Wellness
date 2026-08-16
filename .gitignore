@@ -1,0 +1,27 @@
+# Virtual environment
+.venv/
+.venv
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Database (don't commit your actual data)
+*.db
+*.sqlite
+*.sqlite3
+
+# Environment variables / secrets
+.env
+
+# Flask instance folder 
+instance/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Editor folders
+.vscode/
+.idea/
