@@ -1,4 +1,5 @@
-# Astreae
+# Astrea
+![Alt text](https://i.postimg.cc/3J9YjChc/Recording-2026-08-16-200039.gif)
 
 ## Inspiration
 Wellness is an essential part of ones mental health. Yet because of loneliness, work, and stress people often neglect their overall wellness. Our memories are deeply intertwined with our wellness: the good, the bad, and the in between. Their memories are scattered, making it difficult to reflect on the journey of life and what makes it beautiful. This is why we built Astraea, it connects state of mind → with lived experiences → to memory constellations. 
@@ -42,6 +43,20 @@ or
 _________________________________________________________
 
 ## Gallery
+*Get your Wellness ratings + Log it!                  ★*
+![Get your Wellness ratings + Log it!](https://github.com/user-attachments/assets/20b4e811-6951-46a8-b9ad-8ab06ec6dd49)
+
+*Journal entries! With mood entries                   ★*
+![Journal entries! With mood entries](https://github.com/user-attachments/assets/3f35099a-81f0-4849-8b0d-8c0d35484b90)
+
+*Personalised advice based on wellness activities!    ★*
+![Personalised advice based on wellness activities!](https://github.com/user-attachments/assets/ebffde0f-9a4a-4324-a533-aa7e7f91003e)
+
+*Your Memories are constellations in the night sky!   ★*
+![Your Memories are constellations in the night sky!](https://github.com/user-attachments/assets/e22392c4-14d6-46f5-9698-8db71429e993)
+
+*Wellness Checker! Check your wellbeing & keep track! ★*
+![Wellness Checker! Check your wellbeing & keep track!](https://github.com/user-attachments/assets/79d3c056-80dc-4604-a627-3276a4eb1fbe)
 
 _________________________________________________________
 
