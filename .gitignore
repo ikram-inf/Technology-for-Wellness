@@ -1,6 +1,8 @@
 # Virtual environment
 .venv/
 .venv
+.venv1/
+.venv1
 .env
 
 
@@ -21,7 +23,7 @@ __pycache__/
 instance/
 
 #files memories
-uploads/
+uploads/*
 
 # OS junk
 .DS_Store
