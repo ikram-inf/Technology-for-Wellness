@@ -1,5 +1,6 @@
 import os
 import math
+import random
 from datetime import datetime
 from flask import Flask, request, send_from_directory, render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
@@ -20,6 +21,41 @@ ALLOWED = {
     "audio": {"mp3", "wav", "m4a", "ogg"},
     "video": {"mp4", "mov", "webm"},
 }
+
+ACTIVITIES = [
+    # targeted at low walking
+    {"text": "Take a 10-minute walk around the block, no destination needed.", "metric": "walking", "moods": None},
+    {"text": "Walk to get a coffee or tea instead of making it at home.", "metric": "walking", "moods": None},
+    {"text": "Put on a song and walk around your place for one full track.", "metric": "walking", "moods": None},
+    {"text": "Take the stairs a few extra times today, just to move.", "metric": "walking", "moods": None},
+
+    # targeted at low water
+    {"text": "Drink a full glass of water right now — an easy win.", "metric": "water", "moods": None},
+    {"text": "Refill a water bottle and keep it next to you for the next hour.", "metric": "water", "moods": None},
+    {"text": "Swap your next drink for water instead.", "metric": "water", "moods": None},
+
+    # targeted at low went_out
+    {"text": "Step outside for five minutes, even just onto a balcony or doorstep.", "metric": "went_out", "moods": None},
+    {"text": "Eat your next meal or snack outside if you can.", "metric": "went_out", "moods": None},
+    {"text": "Open a window and let some fresh air into the room.", "metric": "went_out", "moods": None},
+
+    # targeted at low happiness / heavy moods
+    {"text": "Message a friend, even just to say hi — no big reason needed.", "metric": "happiness", "moods": ["Sadness", "Anxious", "Anger"]},
+    {"text": "Revisit a happy memory in your sky and sit with it for a minute.", "metric": "happiness", "moods": ["Sadness", "Anxious", "Anger"]},
+    {"text": "Call someone you trust, even for five minutes.", "metric": "happiness", "moods": ["Sadness", "Anxious", "Anger"]},
+    {"text": "Write down three small things that went okay today.", "metric": "happiness", "moods": ["Sadness", "Anxious", "Anger"]},
+    {"text": "Put on your favorite comfort song and just listen.", "metric": "happiness", "moods": ["Sadness", "Anxious", "Anger"]},
+
+    # light-mood momentum (keep a good streak going)
+    {"text": "Since you're feeling good — go for a walk and enjoy it.", "metric": None, "moods": ["Joy", "Calm", "Gratitude", "Love"]},
+    {"text": "Share this good mood with someone — send them a message.", "metric": None, "moods": ["Joy", "Calm", "Gratitude", "Love"]},
+    {"text": "Write down what's making today feel good, so you can look back on it.", "metric": None, "moods": ["Joy", "Calm", "Gratitude", "Love"]},
+
+    # general / no strong signal either way
+    {"text": "Take a short break — step away from the screen for a bit.", "metric": None, "moods": None},
+    {"text": "Do some light stretching for five minutes.", "metric": None, "moods": None},
+    {"text": "Make a warm drink and sit somewhere quiet for a bit.", "metric": None, "moods": None},
+]
 
 def detect_media_type(filename):
     ext = filename.rsplit(".", 1)[-1].lower()
@@ -76,6 +112,44 @@ def wellness_tips(check):
 
     return tips
 
+def suggest_activity():
+    last_entry = Entry.query.order_by(Entry.date.desc()).first()
+    today_str = datetime.utcnow().strftime("%Y-%m-%d")
+    today_check = next(
+        (c for c in WellnessCheck.query.all() if c.date.strftime("%Y-%m-%d") == today_str),
+        None
+    )
+    mood_label = last_entry.mood.label if last_entry else None
+
+    if not last_entry and not today_check:
+        return {"text": "Write your first memory, or do today's wellness check-in, to get a suggestion."}
+
+    # 1. If a wellness metric is clearly low, prioritize activities targeting it
+    if today_check:
+        scores = {
+            "walking": today_check.walking,
+            "went_out": today_check.went_out,
+            "water": today_check.water,
+            "happiness": today_check.happiness,
+        }
+        lowest_metric = min(scores, key=scores.get)
+        if scores[lowest_metric] < 6:
+            matches = [a for a in ACTIVITIES if a["metric"] == lowest_metric]
+            if matches:
+                return random.choice(matches)
+
+    # 2. Otherwise, match on mood
+    if mood_label:
+        mood_matches = [
+            a for a in ACTIVITIES
+            if a["moods"] and mood_label in a["moods"]
+        ]
+        if mood_matches:
+            return random.choice(mood_matches)
+
+    # 3. Fall back to general activities
+    general = [a for a in ACTIVITIES if a["metric"] is None and a["moods"] is None]
+    return random.choice(general)
 
 # ---------------------------------------------------------
 # Tables
@@ -293,6 +367,12 @@ def save_wellness():
     db.session.add(check)
     db.session.commit()
     return redirect(url_for("wellness"))
+
+@app.route("/brighter")
+def brighter():
+    suggestion = suggest_activity()
+    return render_template("brighter.html", suggestion=suggestion)
+
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)

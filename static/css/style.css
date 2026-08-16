@@ -64,11 +64,25 @@ h1 {
   color: white;
 }
 
-.paper {
+/*.paper {
   background:
     repeating-linear-gradient(
       white 0px, white 27px, #dfe3ee 28px
     );
+  color: #2b2f45;
+  width: min(600px, 85vw);
+  min-height: 300px;
+  border-radius: 10px;
+  padding: 30px 36px;
+  margin: 20px 0;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+  text-align: left;
+}*/
+
+.paper {
+  background-image: url("https://images.pexels.com/photos/20818858/pexels-photo-20818858.jpeg");
+  background-size: cover;
+  background-position: center;
   color: #2b2f45;
   width: min(600px, 85vw);
   min-height: 300px;
@@ -331,4 +345,11 @@ h1 {
   color: #cfd6f0;
   font-size: 14px;
   text-align: center;
+}
+
+.brighter-text {
+  font-size: 22px;
+  line-height: 1.5;
+  font-style: italic;
+  margin: 0;
 }
