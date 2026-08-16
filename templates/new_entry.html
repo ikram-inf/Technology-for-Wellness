@@ -2,27 +2,59 @@
 <html>
 <head>
   <title>New memory</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
+<script>
+function checkFileSize(input) {
+  const warning = document.getElementById("file-warning");
+  const maxBytes = 16 * 1024 * 1024; // match MAX_CONTENT_LENGTH in app.py
+
+  if (input.files[0] && input.files[0].size > maxBytes) {
+    warning.textContent = "This file is too large (max 16 MB). Please choose a smaller one.";
+    warning.style.display = "block";
+    input.value = ""; // clear the invalid selection
+  } else {
+    warning.style.display = "none";
+  }
+}
+</script>
 <body>
-  <h1>Write a memory</h1>
+  <div class="hero">
+    <div class="tagline">Your sky journal</div>
+    <h1>New memory</h1>
 
-  <form action="/entries" method="POST" enctype="multipart/form-data">
-    <textarea name="text" placeholder="What's on your mind?" required></textarea>
-    <br><br>
+    <div class="paper">
+      <form action="/entries" method="POST" enctype="multipart/form-data">
+        <label class="form-label">What's on your mind?</label>
+        <textarea name="text" class="form-textarea" placeholder="Write as much or as little as you like..." required></textarea>
 
-    <label>Mood:</label>
-    <select name="mood_id" required>
-      {% for mood in moods %}
-        <option value="{{ mood.id }}">{{ mood.label }}</option>
-      {% endfor %}
-    </select>
-    <br><br>
+        <label class="form-label">Mood</label>
+        <div class="mood-grid">
+          {% for mood in moods %}
+            <label class="mood-chip" style="--mood-color: {{ mood.color }};">
+              <input type="radio" name="mood_id" value="{{ mood.id }}" required>
+              <span class="dot" style="background: {{ mood.color }};"></span>
+              {{ mood.label }}
+            </label>
+          {% endfor %}
+        </div>
 
-    <label>Photo, audio, or video (optional):</label>
-    <input type="file" name="media" accept="image/*,audio/*,video/*">
-    <br><br>
+        <label class="form-label">Date</label>
+        <input type="date" name="date" value="{{ today }}" class="form-input">
 
-    <button type="submit">Save to sky</button>
-  </form>
+        <label class="form-label">Time</label>
+        <input type="time" name="time" value="{{ now_time }}" class="form-input">
+
+        <label class="form-label">Photo, audio, or video (optional)</label>
+        <input type="file" name="media" accept="image/*,audio/*,video/*" class="form-input"
+       onchange="checkFileSize(this)">
+        <p id="file-warning" style="color: #c0392b; font-size: 13px; display: none;"></p>
+
+        <button type="submit" class="form-submit">Save to sky</button>
+      </form>
+    </div>
+
+    <a href="/journal" class="tab inactive full-width">Cancel</a>
+  </div>
 </body>
 </html>

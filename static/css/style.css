@@ -9,6 +9,12 @@ body {
   background-attachment: fixed;
 }
 
+input[type="range"] {
+  width: 100%;
+  margin: 6px 0 4px;
+  accent-color: #5b6fd1;
+}
+
 .hero {
   min-height: 100vh;
   display: flex;
@@ -90,8 +96,12 @@ h1 {
 
 .paper-media {
   max-width: 100%;
+  max-height: 280px;
+  width: auto;
   border-radius: 6px;
   margin-top: 12px;
+  object-fit: cover;
+  display: block;
 }
 
 .tab.disabled {
@@ -153,4 +163,172 @@ h1 {
   background: #5b6fd1;
   color: white;
   border-color: #5b6fd1;
+}
+
+.sky-hero {
+  padding-bottom: 60px;
+}
+
+.sky-frame {
+  width: min(700px, 90vw);
+  aspect-ratio: 1000 / 700;
+  margin: 20px 0;
+  position: relative;
+}
+
+.sky-frame svg {
+  width: 100%;
+  height: 100%;
+}
+
+.star circle {
+  transition: opacity 0.2s ease;
+}
+
+.star:hover circle {
+  opacity: 0.85;
+}
+
+.sky-empty {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #cfd6f0;
+  text-align: center;
+}
+
+.form-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #6b7290;
+  margin: 18px 0 8px;
+}
+
+.form-label:first-of-type {
+  margin-top: 0;
+}
+
+.form-textarea, .form-input {
+  width: 100%;
+  border: 1px solid #d6d9e8;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-family: inherit;
+  font-size: 14px;
+  color: #2b2f45;
+  background: white;
+  box-sizing: border-box;
+}
+
+.form-textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.mood-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.mood-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1.5px solid #d6d9e8;
+  font-size: 13px;
+  color: #4a4f6a;
+  cursor: pointer;
+}
+
+.mood-chip input {
+  display: none;
+}
+
+.mood-chip .dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+.mood-chip:has(input:checked) {
+  border-color: var(--mood-color);
+  background: rgba(0,0,0,0.03);
+  font-weight: 600;
+  color: #1a1d2e;
+}
+
+.form-submit {
+  margin-top: 20px;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: #5b6fd1;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.form-submit:hover {
+  background: #4c5eb8;
+}
+
+.grade-card {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 14px;
+  padding: 20px 24px;
+  width: min(600px, 85vw);
+  margin: 16px 0;
+  text-align: center;
+}
+
+.grade-letter {
+  font-size: 48px;
+  font-weight: 800;
+  color: #ffd166;
+  line-height: 1;
+}
+
+.grade-score {
+  font-size: 13px;
+  color: #cfd6f0;
+  margin: 6px 0 14px;
+}
+
+.tips-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+.tips-list li {
+  font-size: 14px;
+  color: #e6e4f0;
+  padding: 8px 0;
+  border-top: 1px solid rgba(255,255,255,0.12);
+}
+
+.tips-list li:first-child {
+  border-top: none;
+}
+
+.already-done {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 12px;
+  padding: 16px 20px;
+  width: min(600px, 85vw);
+  color: #cfd6f0;
+  font-size: 14px;
+  text-align: center;
 }

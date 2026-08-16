@@ -24,11 +24,14 @@
         <span class="tab inactive disabled">Next day →</span>
       {% endif %}
     </div>
+    <a href="/wellness" class="tab inactive full-width">🌱 Wellness</a>
 
     <div class="journal-list">
       {% for entry in day_entries %}
         <div class="paper">
-          <div class="paper-mood" style="color: {{ entry.mood.color }};">{{ entry.mood.label }}</div>
+          <div class="paper-mood">
+            {{ entry.mood.label }} · {{ entry.date.strftime("%H:%M") }}
+          </div>
           <p class="paper-text">{{ entry.text }}</p>
           {% if entry.media_type == "image" %}
             <img class="paper-media" src="/{{ entry.media_path }}">
@@ -45,7 +48,7 @@
 
     {% if all_days|length > 1 %}
       <div class="day-picker">
-        {% for day in all_days %}
+        {% for day in all_days|reverse %}
           <a href="/journal?day={{ day }}" class="day-chip {{ 'selected' if day == selected_day else '' }}">
             {{ day.strftime("%b %-d") }}
           </a>

@@ -1,16 +1,31 @@
 <!DOCTYPE html>
 <html>
+<head>
+  <title>Memory</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
 <body>
-  <a href="/sky">← back to sky</a>
-  <h2>{{ entry.mood.label }} — {{ entry.date.strftime("%b %d, %Y") }}</h2>
-  <p>{{ entry.text }}</p>
+  <div class="hero">
+    <div class="tagline">{{ entry.date.strftime("%B %-d, %Y") }}</div>
+    <h1>Memory</h1>
 
-  {% if entry.media_type == "image" %}
-    <img src="/{{ entry.media_path }}" width="300">
-  {% elif entry.media_type == "audio" %}
-    <audio controls src="/{{ entry.media_path }}"></audio>
-  {% elif entry.media_type == "video" %}
-    <video controls width="400" src="/{{ entry.media_path }}"></video>
-  {% endif %}
+    <div class="journal-list">
+      <div class="paper">
+        <div class="paper-mood" style="color: {{ entry.mood.color }};">
+          {{ entry.mood.label }} · {{ entry.date.strftime("%H:%M") }}
+        </div>
+        <p class="paper-text">{{ entry.text }}</p>
+        {% if entry.media_type == "image" %}
+          <img class="paper-media" src="/{{ entry.media_path }}">
+        {% elif entry.media_type == "audio" %}
+          <audio controls src="/{{ entry.media_path }}"></audio>
+        {% elif entry.media_type == "video" %}
+          <video class="paper-media" controls src="/{{ entry.media_path }}"></video>
+        {% endif %}
+      </div>
+    </div>
+
+    <a href="/sky" class="tab inactive full-width">← Back to sky</a>
+  </div>
 </body>
 </html>

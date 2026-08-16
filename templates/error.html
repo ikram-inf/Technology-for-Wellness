@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ title }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="hero">
+    <div class="tagline">Something went wrong</div>
+    <h1>{{ title }}</h1>
+
+    <div class="paper">
+      <p class="paper-text">{{ message }}</p>
+    </div>
+
+    <a href="/new" class="tab active">Try again</a>
+    <a href="/journal" class="tab inactive full-width">Back to journal</a>
+  </div>
+</body>
+</html>

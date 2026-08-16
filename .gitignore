@@ -3,6 +3,8 @@
 .venv
 .env
 
+
+
 # Python cache
 __pycache__/
 *.pyc
@@ -17,6 +19,9 @@ __pycache__/
 
 # Flask instance folder 
 instance/
+
+#files memories
+uploads/
 
 # OS junk
 .DS_Store
