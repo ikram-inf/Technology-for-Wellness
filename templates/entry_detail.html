@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <a href="/sky">← back to sky</a>
+  <h2>{{ entry.mood.label }} — {{ entry.date.strftime("%b %d, %Y") }}</h2>
+  <p>{{ entry.text }}</p>
+
+  {% if entry.media_type == "image" %}
+    <img src="/{{ entry.media_path }}" width="300">
+  {% elif entry.media_type == "audio" %}
+    <audio controls src="/{{ entry.media_path }}"></audio>
+  {% elif entry.media_type == "video" %}
+    <video controls width="400" src="/{{ entry.media_path }}"></video>
+  {% endif %}
+</body>
+</html>

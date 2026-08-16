@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Journal</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="hero">
+    <div class="tagline">Your sky journal</div>
+    <h1>Journal</h1>
+    <a href="/new" class="tab active">+ Add memory</a>
+
+    <div class="journal-list">
+      {% for day, day_entries in grouped.items() %}
+        <div class="day-label">{{ day }}</div>
+        {% for entry in day_entries %}
+          <div class="paper">
+            <div class="paper-mood" style="color: {{ entry.mood.color }};">{{ entry.mood.label }}</div>
+            <p class="paper-text">{{ entry.text }}</p>
+            {% if entry.media_type == "image" %}
+              <img class="paper-media" src="/{{ entry.media_path }}">
+            {% elif entry.media_type == "audio" %}
+              <audio controls src="/{{ entry.media_path }}"></audio>
+            {% elif entry.media_type == "video" %}
+              <video class="paper-media" controls src="/{{ entry.media_path }}"></video>
+            {% endif %}
+          </div>
+        {% endfor %}
+      {% else %}
+        <p class="paper-text" style="color:white;">No memories yet. <a href="/new">Write your first →</a></p>
+      {% endfor %}
+    </div>
+
+    <a href="/sky" class="tab inactive full-width">Sky</a>
+  </div>
+</body>
+</html>

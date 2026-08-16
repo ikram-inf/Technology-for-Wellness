@@ -1,4 +1,5 @@
 import os
+import math
 from datetime import datetime
 from flask import Flask, request, send_from_directory, render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
@@ -25,6 +26,19 @@ def detect_media_type(filename):
         if ext in extensions:
             return media_type
     return None
+
+# ---------------------------------------------------------
+# Stars position
+# ---------------------------------------------------------
+
+def star_position(index):
+    cx, cy = 500, 350
+    angle = index * 137.508 * (math.pi / 180)
+    radius = min(16 * math.sqrt(index + 1), 320)
+    x = cx + radius * math.cos(angle)
+    y = cy + radius * math.sin(angle) * 0.72
+    return x, y
+
 
 
 # ---------------------------------------------------------
@@ -72,8 +86,8 @@ with app.app_context():
 # Routes
 # ---------------------------------------------------------
 @app.route("/")
-def hello():
-    return "<h1>hello sky</h1><p>Flask is running and talking to SQLite.</p>"
+def home():
+    return render_template("index.html")
 
 @app.route("/entries")
 def list_entries():
@@ -110,8 +124,42 @@ def create_entry():
     db.session.add(entry)
     db.session.commit()
 
-    return redirect(url_for("list_entries"))
+    return redirect(url_for("journal"))
 
+@app.route("/sky")
+def sky():
+    entries = Entry.query.order_by(Entry.date.asc()).all()
+    for i, entry in enumerate(entries):
+        entry.x, entry.y = star_position(i)
+
+    # group entries by mood so we can draw a line connecting each group
+    by_mood = {}
+    for entry in entries:
+        by_mood.setdefault(entry.mood.label, []).append(entry)
+
+    constellations = []
+    for label, group in by_mood.items():
+        if len(group) >= 2:
+            points = " ".join(f"{e.x},{e.y}" for e in group)
+            constellations.append({"color": group[0].mood.color, "points": points})
+
+    return render_template("sky.html", entries=entries, constellations=constellations)
+
+@app.route("/entries/<int:entry_id>")
+def entry_detail(entry_id):
+    entry = Entry.query.get_or_404(entry_id)
+    return render_template("entry_detail.html", entry=entry)
+
+@app.route("/journal")
+def journal():
+    entries = Entry.query.order_by(Entry.date.desc()).all()
+
+    grouped = {}
+    for entry in entries:
+        day = entry.date.strftime("%B %-d, %Y")
+        grouped.setdefault(day, []).append(entry)
+
+    return render_template("journal.html", grouped=grouped)
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
