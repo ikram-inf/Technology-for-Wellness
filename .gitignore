@@ -23,7 +23,7 @@ __pycache__/
 instance/
 
 #files memories
-uploads/
+uploads/*
 
 # OS junk
 .DS_Store
