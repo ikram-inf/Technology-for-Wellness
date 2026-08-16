@@ -1,29 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Your sky</title>
-  <style>
-    body { background: #0a0d1f; margin: 0; }
-    svg { width: 100%; height: 100vh; display: block; }
-    .star { cursor: pointer; }
-    .star:hover circle { opacity: 0.8; }
-  </style>
+  <title>Sky</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-  <svg viewBox="0 0 1000 700">
-    {% for c in constellations %}
-        <polyline points="{{ c.points }}" fill="none" stroke="{{ c.color }}"
-                stroke-width="1.5" opacity="0.35"></polyline>
-    {% endfor %}
+  <div class="hero sky-hero">
+    <div class="tagline">Your sky journal</div>
+    <h1>Sky</h1>
+    <a href="/journal" class="tab inactive full-width">Journal</a>
+    <a href="/wellness" class="tab inactive full-width">🌱 Wellness</a>
 
-    {% for entry in entries %}
-        <a href="/entries/{{ entry.id }}">
-        <g class="star" transform="translate({{ entry.x }},{{ entry.y }})">
-            <circle r="12" fill="{{ entry.mood.color }}" opacity="0.2"></circle>
-            <circle r="5" fill="{{ entry.mood.color }}"></circle>
-        </g>
-        </a>
-    {% endfor %}
-    </svg>
+    <div class="sky-frame">
+      <svg viewBox="0 0 1000 700">
+        {% for c in constellations %}
+          <polyline points="{{ c.points }}" fill="none" stroke="{{ c.color }}"
+                    stroke-width="1.5" opacity="0.35"></polyline>
+        {% endfor %}
+
+        {% for entry in entries %}
+          <a href="/entries/{{ entry.id }}">
+            <g class="star" transform="translate({{ entry.x }},{{ entry.y }})">
+              <circle r="20" fill="{{ entry.mood.color }}" opacity="0.2"></circle>
+              <circle r="8" fill="{{ entry.mood.color }}"></circle>
+            </g>
+          </a>
+        {% endfor %}
+      </svg>
+
+      {% if not entries %}
+        <p class="paper-text sky-empty">No stars yet. <a href="/new">Write your first memory →</a></p>
+      {% endif %}
+    </div>
+
+  </div>
 </body>
 </html>

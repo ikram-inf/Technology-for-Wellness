@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Wellness check</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="hero">
+    <div class="tagline">{{ today }}</div>
+    <h1>Wellness check</h1>
+    {% if latest_grade %}
+    <div class="grade-card">
+        <div class="grade-letter">{{ latest_grade }}</div>
+        <div class="grade-score">{{ latest_score }}/10 average</div>
+        <ul class="tips-list">
+        {% for tip in latest_tips %}
+            <li>{{ tip }}</li>
+        {% endfor %}
+        </ul>
+    </div>{% endif %}
+
+    {% if today_check %}
+    <div class="already-done">
+        ✅ You've already checked in today. Come back tomorrow!
+    </div>
+    {% else %}
+    <form action="/wellness" method="POST">
+        <label class="form-label">Walking <span id="walking-val">5</span>/10</label>
+        <input type="range" name="walking" min="1" max="10" value="5"
+            oninput="document.getElementById('walking-val').textContent = this.value">
+
+        <label class="form-label">Water <span id="water-val">5</span>/10</label>
+        <input type="range" name="water" min="1" max="10" value="5"
+            oninput="document.getElementById('water-val').textContent = this.value">
+
+        <label class="form-label">Happiness <span id="happiness-val">5</span>/10</label>
+        <input type="range" name="happiness" min="1" max="10" value="5"
+            oninput="document.getElementById('happiness-val').textContent = this.value">
+
+        <label class="form-label">Went out <span id="went_out-val">5</span>/10</label>
+        <input type="range" name="went_out" min="1" max="10" value="5"
+            oninput="document.getElementById('went_out-val').textContent = this.value">
+
+        <button type="submit" class="form-submit">Save check-in</button>
+    </form>
+    {% endif %}
+
+    <div class="journal-list">
+      {% for check in checks %}
+        <div class="paper">
+          <div class="paper-mood">{{ check.date.strftime("%b %-d, %Y") }}</div>
+          <p class="paper-text">
+            🚶 Walking: {{ check.walking }}/10 &nbsp;
+            💧 Water: {{ check.water }}/10 &nbsp;
+            😊 Happiness: {{ check.happiness }}/10 &nbsp;
+            🚪 Went out: {{ check.went_out }}/10
+          </p>
+        </div>
+      {% endfor %}
+    </div>
+
+    <a href="/journal" class="tab inactive full-width">Back to journal</a>
+  </div>
+</body>
+</html>
