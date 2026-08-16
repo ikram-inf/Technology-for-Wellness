@@ -3,15 +3,133 @@
 <head>
   <title>Star Journal</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .hero-content {
+      max-width: 650px;
+      margin-bottom: 30px;
+    }
+
+    h1 {
+      font-size: 42px;
+      font-weight: 800;
+      line-height: 1.3;
+      margin: 16px 0 20px;
+    }
+
+    .hero-subtitle {
+      font-size: 15px;
+      line-height: 26px;
+      color: #cfd6f0;
+      margin: 16px 0 24px;
+      font-weight: 300;
+      letter-spacing: 0.5px;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      width: min(700px, 95vw);
+      margin: 24px auto;
+      padding: 0 20px;
+    }
+
+    .feature-card {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+      background: rgba(91, 111, 209, 0.15);
+      border-color: rgba(91, 111, 209, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .feature-icon {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .feature-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: white;
+      margin: 10px 0 6px;
+    }
+
+    .feature-desc {
+      font-size: 12px;
+      color: #a0aac0;
+      line-height: 18px;
+    }
+
+    .cta-section {
+      margin-top: 24px;
+    }
+
+    .cta-text {
+      font-size: 13px;
+      color: #a0aac0;
+      margin-bottom: 16px;
+    }
+
+    .tabs {
+      gap: 12px;
+    }
+
+    @media (max-width: 768px) {
+      .features {
+        grid-template-columns: 1fr;
+      }
+      h1 {
+        font-size: 32px;
+      }
+    }
+  </style>
 </head>
 <body>
   <div class="hero">
-    <div class="tagline">Your sky journal</div>
-    <h1>Star Journal<br>When your wellness<br>becomes constellations</h1>
+    <div class="tagline">Welcome to wellness</div>
+    <div class="hero-content">
+      <h1>Star Journal<br>When your wellness<br>becomes constellations</h1>
+      <p class="hero-subtitle">Track daily wellness and watch your memories bloom into constellations.</p>
+    </div>
 
-    <div class="tabs">
-     <a href="/journal" class="tab active">Journal</a>
-      <a href="/sky" class="tab inactive">Sky</a>
+    <div class="features">
+      <div class="feature-card">
+        <div class="feature-title">Journal</div>
+        <div class="feature-desc">Write your daily memories</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-title">Sky</div>
+        <div class="feature-desc">View your constellation</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-title">Wellness</div>
+        <div class="feature-desc">Daily check-in & tips</div>
+      </div>
+    </div>
+
+    <div class="cta-section">
+      <div class="cta-text">Ready to begin?</div>
+      <div class="tabs">
+        <a href="/journal" class="tab active">Begin</a>
+        <a href="/sky" class="tab inactive">View Sky</a>
+      </div>
     </div>
   </div>
 </body>

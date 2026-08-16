@@ -131,6 +131,19 @@ input[type="range"] {
   display: block;
 }
 
+.write-memory {
+  color: #5b6fd1;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 2px solid #5b6fd1;
+  transition: all 0.2s ease;
+}
+
+.write-memory:hover {
+  color: #4c5eb8;
+  border-bottom-color: #4c5eb8;
+}
+
 
 /* ===========================================================
    JOURNAL LIST + DAY NAVIGATION
