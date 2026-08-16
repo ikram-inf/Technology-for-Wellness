@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Make my day brighter</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="hero">
+    <div class="tagline">A small suggestion</div>
+    <h1>✨ Brighter</h1>
+
+    <div class="paper">
+      <p class="brighter-text">{{ suggestion.text }}</p>
+    </div>
+
+    <a href="/brighter" class="tab active">Try another</a>
+    <a href="/journal" class="tab inactive full-width">Back to journal</a>
+  </div>
+</body>
+</html>
