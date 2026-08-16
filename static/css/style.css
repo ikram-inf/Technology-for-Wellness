@@ -1,3 +1,6 @@
+/* ===========================================================
+   BASE / GLOBAL
+   =========================================================== */
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
@@ -9,12 +12,24 @@ body {
   background-attachment: fixed;
 }
 
+h1 {
+  font-size: 42px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0 0 24px;
+  max-width: 600px;
+}
+
 input[type="range"] {
   width: 100%;
   margin: 6px 0 4px;
   accent-color: #5b6fd1;
 }
 
+
+/* ===========================================================
+   PAGE SHELL (.hero) — used on every page for the night-sky layout
+   =========================================================== */
 .hero {
   min-height: 100vh;
   display: flex;
@@ -32,14 +47,10 @@ input[type="range"] {
   margin-bottom: 8px;
 }
 
-h1 {
-  font-size: 42px;
-  font-weight: 800;
-  line-height: 1.2;
-  margin: 0 0 24px;
-  max-width: 600px;
-}
 
+/* ===========================================================
+   TABS / NAV BUTTONS — used for Journal/Sky/Brighter links, etc.
+   =========================================================== */
 .tabs {
   display: flex;
   gap: 10px;
@@ -64,21 +75,23 @@ h1 {
   color: white;
 }
 
-/*.paper {
-  background:
-    repeating-linear-gradient(
-      white 0px, white 27px, #dfe3ee 28px
-    );
-  color: #2b2f45;
-  width: min(600px, 85vw);
-  min-height: 300px;
-  border-radius: 10px;
-  padding: 30px 36px;
-  margin: 20px 0;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-  text-align: left;
-}*/
+.tab.disabled {
+  opacity: 0.35;
+  cursor: default;
+}
 
+.tab.full-width {
+  margin-top: 14px;
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  padding: 10px 40px;
+}
+
+
+/* ===========================================================
+   PAPER CARD — the core "memory card" component
+   used on: journal, entry detail, new entry form, brighter
+   =========================================================== */
 .paper {
   background-image: url("https://images.pexels.com/photos/20818858/pexels-photo-20818858.jpeg");
   background-size: cover;
@@ -103,7 +116,7 @@ h1 {
 
 .paper-text {
   font-size: 15px;
-  line-height: 28px; /* matches the 28px paper-line spacing above */
+  line-height: 28px;
   white-space: pre-wrap;
   margin: 0;
 }
@@ -118,18 +131,10 @@ h1 {
   display: block;
 }
 
-.tab.disabled {
-  opacity: 0.35;
-  cursor: default;
-}
 
-.tab.full-width {
-  margin-top: 14px;
-  margin-bottom: 14px;
-  padding-bottom: 14px;
-  padding: 10px 40px;
-}
-
+/* ===========================================================
+   JOURNAL LIST + DAY NAVIGATION
+   =========================================================== */
 .journal-list {
   width: min(600px, 85vw);
   margin: 20px 0;
@@ -179,6 +184,10 @@ h1 {
   border-color: #5b6fd1;
 }
 
+
+/* ===========================================================
+   SKY VIEW / CONSTELLATIONS
+   =========================================================== */
 .sky-hero {
   padding-bottom: 60px;
 }
@@ -212,6 +221,10 @@ h1 {
   text-align: center;
 }
 
+
+/* ===========================================================
+   FORMS — new memory form, mood picker
+   =========================================================== */
 .form-label {
   display: block;
   font-size: 12px;
@@ -243,6 +256,24 @@ h1 {
   resize: vertical;
 }
 
+.form-submit {
+  margin-top: 20px;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: #5b6fd1;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.form-submit:hover {
+  background: #4c5eb8;
+}
+
+/* mood chip picker (radio buttons styled as pills) */
 .mood-grid {
   display: flex;
   flex-wrap: wrap;
@@ -278,23 +309,10 @@ h1 {
   color: #1a1d2e;
 }
 
-.form-submit {
-  margin-top: 20px;
-  width: 100%;
-  padding: 12px;
-  border: none;
-  border-radius: 8px;
-  background: #5b6fd1;
-  color: white;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-}
 
-.form-submit:hover {
-  background: #4c5eb8;
-}
-
+/* ===========================================================
+   WELLNESS CHECK-IN
+   =========================================================== */
 .grade-card {
   background: rgba(255,255,255,0.08);
   border: 1px solid rgba(255,255,255,0.2);
@@ -347,6 +365,10 @@ h1 {
   text-align: center;
 }
 
+
+/* ===========================================================
+   BRIGHTER PAGE
+   =========================================================== */
 .brighter-text {
   font-size: 22px;
   line-height: 1.5;
